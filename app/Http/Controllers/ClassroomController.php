@@ -62,10 +62,8 @@ class ClassroomController extends Controller
         );
     }
 
-    public function update(
-        UpdateClassroomRequest $request,
-        Classroom $classroom
-    ) {
+    public function update(UpdateClassroomRequest $request, Classroom $classroom)
+    {
         $this->classroomService->updateClassroom(
             $classroom,
             $request->validated()
@@ -81,16 +79,27 @@ class ClassroomController extends Controller
 
     public function destroy(Classroom $classroom)
     {
-        $this->classroomService->deleteClassroom(
-            $classroom
-        );
+        try {
 
-        return redirect()
-            ->route('classrooms.index')
-            ->with(
-                'success',
-                'Classroom deleted successfully.'
-            );
+            $this->classroomService
+                ->deleteClassroom($classroom);
+
+            return redirect()
+                ->route('classrooms.index')
+                ->with(
+                    'success',
+                    'Classroom deleted successfully.'
+                );
+
+        } catch (\DomainException $e) {
+
+            return back()
+                ->withInput()
+                ->with(
+                    'error',
+                    $e->getMessage()
+                );
+        }
     }
 
 }

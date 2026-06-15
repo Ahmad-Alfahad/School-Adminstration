@@ -9,7 +9,7 @@ class ClassroomService
 {
     protected $classroomRepository;
 
-    public function __construct( ClassroomRepository $classroomRepository) 
+    public function __construct(ClassroomRepository $classroomRepository)
     {
         $this->classroomRepository = $classroomRepository;
     }
@@ -39,8 +39,28 @@ class ClassroomService
 
     public function deleteClassroom(Classroom $classroom)
     {
+        $this->ensureClassroomCanBeDeleted(
+            $classroom);
+
         return $this->classroomRepository->delete(
             $classroom
         );
+    }
+
+    private function ensureClassroomCanBeDeleted(Classroom $classroom): void
+    {
+        if ($classroom->students()->exists()) {
+
+            throw new \DomainException(
+                'Cannot delete a classroom that contains students.'
+            );
+        }
+
+        if ($classroom->teachers()->exists()) {
+
+            throw new \DomainException(
+                'Cannot delete a classroom that contains teachers.'
+            );
+        }
     }
 }
