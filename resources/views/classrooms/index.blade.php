@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 py-2">
             <div>
                 <h2 class="font-bold text-2xl text-slate-800 dark:text-slate-100 leading-tight">
                     {{ __('Classrooms') }}
