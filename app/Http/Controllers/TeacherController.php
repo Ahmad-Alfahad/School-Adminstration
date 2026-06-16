@@ -7,6 +7,7 @@ use App\Http\Requests\StoreTeacherRequest;
 use App\Http\Requests\UpdateTeacherRequest;
 use App\Services\TeacherService;
 use App\Models\Classroom;
+use Illuminate\Http\Request;
 
 
 class TeacherController extends Controller
@@ -18,10 +19,13 @@ class TeacherController extends Controller
         $this->teacherService = $teacherService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
 
-        $teachers = $this->teacherService->getAllTeachers();
+        $teachers = $this->teacherService
+            ->getPaginatedTeachers(
+                $request->search
+            );
 
         return view('teachers.index', compact('teachers'));
     }
@@ -29,7 +33,7 @@ class TeacherController extends Controller
     public function create()
     {
         $classrooms = Classroom::all();
-        return view('teachers.create' , compact('classrooms'));
+        return view('teachers.create', compact('classrooms'));
     }
 
     public function store(StoreTeacherRequest $request)

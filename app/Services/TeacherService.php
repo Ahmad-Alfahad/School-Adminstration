@@ -9,7 +9,7 @@ class TeacherService
 {
     protected $teacherRepository;
 
-    public function __construct( TeacherRepository $teacherRepository) 
+    public function __construct(TeacherRepository $teacherRepository)
     {
         $this->teacherRepository = $teacherRepository;
     }
@@ -41,5 +41,14 @@ class TeacherService
         return $this->teacherRepository->delete(
             $teacher
         );
+    }
+
+    public function getPaginatedTeachers(?string $search = null)
+    {
+        return $this->teacherRepository
+            ->paginate(
+                10,
+                $search
+            );
     }
 }

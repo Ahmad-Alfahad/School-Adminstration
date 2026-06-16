@@ -21,7 +21,54 @@
         </div>
     </x-slot>
 
-    <div class="py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="py-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-3 bg-white dark:bg-slate-900 p-4 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm">
+
+    <form method="GET" action="{{ route('teachers.index') }}">
+
+        <div class="flex flex-col md:flex-row gap-3 items-center">
+
+            <div class="relative w-full flex-1">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                    <svg class="h-5 w-5 text-slate-400 dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </div>
+                
+                <input
+                    type="text"
+                    name="search"
+                    value="{{ request('search') }}"
+                    placeholder="Search by teacher name or email..."
+                    class="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 focus:bg-white dark:focus:bg-slate-800 transition-all duration-200"
+                >
+            </div>
+
+            <div class="flex gap-2 w-full md:w-auto shrink-0">
+
+                <button
+                    type="submit"
+                    class="w-full md:w-auto inline-flex items-center justify-center px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold rounded-xl shadow-sm hover:shadow transition-all duration-200 focus:ring-2 focus:ring-emerald-500/20 cursor-pointer"
+                >
+                    Search
+                </button>
+
+                @if(request('search'))
+                    <a
+                        href="{{ route('teachers.index') }}"
+                        class="w-full md:w-auto inline-flex items-center justify-center px-5 py-2.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-sm font-semibold rounded-xl shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700/60 transition-all duration-200 focus:ring-2 focus:ring-slate-500/10"
+                    >
+                        Clear
+                    </a>
+                @endif
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
         <div
             class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm overflow-hidden">
 
@@ -102,6 +149,11 @@
                         @endforelse
                     </tbody>
                 </table>
+                    @if($teachers->hasPages())
+                    <div class="flex justify-end bg-white dark:bg-slate-900 px-3 py-1.5 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm custom-pagination">
+                    {{ $teachers->links() }}
+                    </div>
+                    @endif
             </div>
 
         </div>

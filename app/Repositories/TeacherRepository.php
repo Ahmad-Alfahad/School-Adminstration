@@ -33,4 +33,36 @@ class TeacherRepository
     {
         return $teacher->delete();
     }
+
+    public function paginate(int $perPage = 10, ?string $search = null)
+    {
+        return Teacher::query()
+
+            ->when(
+                $search,
+                function ($query) use ($search) {
+
+                    $query->where(function ($q) use ($search) {
+
+                        $q->where(
+                            'name',
+                            'like',
+                            "%{$search}%"
+                        )
+
+                            ->orWhere(
+                                'email',
+                                'like',
+                                "%{$search}%"
+                            );
+
+                    });
+
+                }
+            )
+
+            ->latest()
+            ->paginate($perPage)
+            ->withQueryString();
+    }
 }
