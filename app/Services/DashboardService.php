@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Repositories\DashboardRepository;
 class DashboardService
 {
-    protected $dashboardRepository;
+    protected DashboardRepository $dashboardRepository;
     public function __construct(DashboardRepository $dashboardRepository)
     {
         $this->dashboardRepository = $dashboardRepository;

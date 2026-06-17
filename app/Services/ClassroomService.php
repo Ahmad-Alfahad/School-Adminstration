@@ -7,19 +7,19 @@ use App\Repositories\ClassroomRepository;
 
 class ClassroomService
 {
-    protected $classroomRepository;
+    protected ClassroomRepository $classroomRepository;
 
     public function __construct(ClassroomRepository $classroomRepository)
     {
         $this->classroomRepository = $classroomRepository;
     }
 
-    public function getAllClassroooms()
+    public function getAllClassrooms()
     {
         return $this->classroomRepository->getAll();
     }
 
-    public function getClassroomById($id)
+    public function getClassroomById(int $id)
     {
         return $this->classroomRepository->findById($id);
     }

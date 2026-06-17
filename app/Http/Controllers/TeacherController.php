@@ -7,15 +7,14 @@ use App\Http\Requests\StoreTeacherRequest;
 use App\Http\Requests\UpdateTeacherRequest;
 use App\Services\TeacherService;
 use App\Services\ClassroomService;
-use App\Models\Classroom;
 use Illuminate\Http\Request;
 
 
 class TeacherController extends Controller
 {
     
-    protected $teacherService;
-    protected $classroomService;
+    protected TeacherService $teacherService;
+    protected ClassroomService $classroomService;
     public function __construct(TeacherService $teacherService , ClassroomService $classroomService)
     {
         $this->teacherService = $teacherService;
@@ -35,7 +34,7 @@ class TeacherController extends Controller
 
     public function create()
     {
-        $classrooms = $this->classroomService->getAllClassroooms();
+        $classrooms = $this->classroomService->getAllClassrooms();
         return view('teachers.create', compact('classrooms'));
     }
 
@@ -53,7 +52,7 @@ class TeacherController extends Controller
             );
     }
 
-    public function show($id)
+    public function show(int $id)
     {
         $teacher = $this->teacherService
             ->getTeacherById($id);
@@ -66,7 +65,7 @@ class TeacherController extends Controller
 
     public function edit(Teacher $teacher)
     {
-        $classrooms = $this->classroomService->getAllClassroooms();
+        $classrooms = $this->classroomService->getAllClassrooms();
         return view(
             'teachers.edit',
             compact('teacher', 'classrooms')

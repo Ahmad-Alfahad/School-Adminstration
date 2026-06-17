@@ -8,8 +8,8 @@ use App\Repositories\ClassroomRepository;
 
 class StudentService
 {
-    protected $studentRepository;
-    protected $classroomRepository;
+    protected StudentRepository $studentRepository;
+    protected ClassroomRepository $classroomRepository;
 
     public function __construct(StudentRepository $studentRepository, ClassroomRepository $classroomRepository)
     {
@@ -21,7 +21,7 @@ class StudentService
         return $this->studentRepository->getAll();
     }
 
-    public function getStudentById($id)
+    public function getStudentById(int $id)
     {
         return $this->studentRepository->findById($id);
     }

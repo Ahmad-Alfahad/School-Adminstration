@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class ClassroomController extends Controller
 {
-    protected $classroomService;
+    protected ClassroomService $classroomService;
 
     public function __construct(ClassroomService $classroomService)
     {
@@ -57,7 +57,7 @@ class ClassroomController extends Controller
         }
     }
 
-    public function show($id)
+    public function show( int $id)
     {
         $classroom = $this->classroomService
             ->getClassroomById($id);

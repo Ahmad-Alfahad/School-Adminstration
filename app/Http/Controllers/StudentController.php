@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-    protected $studentService;
+    protected StudentService $studentService;
 
     public function __construct(StudentService $studentService)
     {
@@ -60,7 +60,7 @@ class StudentController extends Controller
         }
     }
 
-    public function show($id)
+    public function show(int $id)
     {
         $student = $this->studentService
             ->getStudentById($id);

@@ -7,7 +7,7 @@ use App\Repositories\TeacherRepository;
 
 class TeacherService
 {
-    protected $teacherRepository;
+    protected TeacherRepository $teacherRepository;
 
     public function __construct(TeacherRepository $teacherRepository)
     {
@@ -18,7 +18,7 @@ class TeacherService
         return $this->teacherRepository->getAll();
     }
 
-    public function getTeacherById($id)
+    public function getTeacherById(int $id)
     {
         return $this->teacherRepository->findById($id);
     }
